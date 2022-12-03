@@ -1,16 +1,17 @@
 package com.test.UrlShortner.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
+@Slf4j
 public class UrlShortnerController {
 
     @GetMapping("/url")
-    public String getUrl(){
-        return "This is the test application to get the url";
+    public String getUrl(@RequestParam String shortendUrl){
+        log.info("Request URL:{}",shortendUrl);
+        return "The shortend url passed :"+shortendUrl;
     }
     @PostMapping("/url/")
     public String createUrl(@RequestBody String url){
