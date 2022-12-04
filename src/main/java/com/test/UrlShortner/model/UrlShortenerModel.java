@@ -12,10 +12,9 @@ public class UrlShortenerModel {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name="shortened_url")
+    private String shortenedURL;
 
-    @Column(name="short_url")
-    private String shortUrl;
-
-    @Column(name="long_url")
-    private String longUrl;
+    @Column(name="original_url")
+    private String originalURL;
 }
