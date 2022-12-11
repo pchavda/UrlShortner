@@ -13,9 +13,15 @@ import org.springframework.web.bind.annotation.*;
 public class UrlShortnerController {
     @Autowired
     UrlShortenerService urlShortenerService;
-    @GetMapping("/url")
+    @GetMapping("/url/")
     public String getUrl(@RequestParam String shortenedUrl) {
         log.info("Request URL:{}", shortenedUrl);
+        if(urlShortenerService.validateURL(shortenedUrl)) {
+            String originalURL = urlShortenerService.retrieveActualURL(shortenedUrl);
+            return originalURL;
+        }
+
+
         return "The shortened url passed :" + shortenedUrl;
     }
 

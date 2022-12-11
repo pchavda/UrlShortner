@@ -68,8 +68,22 @@ public class UrlShortenerService {
             sb.append(AlphaNumericString
                     .charAt(index));
         }
-
-        return sb.toString();
+        StringBuilder domainBuilder=new StringBuilder();
+        domainBuilder.append("https://urlShortner.com/");
+        domainBuilder.append(sb);
+        return domainBuilder.toString();
     }
+
+
+    public String retrieveActualURL(String url) {
+      UrlShortenerModel byShortenedURL = urlShortenerRepository.findByShortURL(url);
+        if(byShortenedURL==null){
+            return "URL not found";
+        }
+
+        return byShortenedURL.getOriginalURL();
+
+    }
+
 }
 
