@@ -28,4 +28,13 @@ public class UrlShortenerModel {
    public UrlShortenerModel(){
 
     }
+
+    @Override
+    public String toString() {
+        return "UrlShortenerModel{" +
+                "id=" + id +
+                ", shortURL='" + shortURL + '\'' +
+                ", originalURL='" + originalURL + '\'' +
+                '}';
+    }
 }
