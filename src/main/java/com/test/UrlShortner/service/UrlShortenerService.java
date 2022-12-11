@@ -1,11 +1,14 @@
 package com.test.UrlShortner.service;
 
 import com.test.UrlShortner.model.ErrorResponse;
+import com.test.UrlShortner.model.Response;
 import com.test.UrlShortner.model.UrlShortenerModel;
 import com.test.UrlShortner.repository.UrlShortenerRepository;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UrlShortenerService {
@@ -85,5 +88,11 @@ public class UrlShortenerService {
 
     }
 
+    public List<UrlShortenerModel> getAll() {
+
+        List<UrlShortenerModel> all = urlShortenerRepository.findAll();
+
+        return all;
+    }
 }
 

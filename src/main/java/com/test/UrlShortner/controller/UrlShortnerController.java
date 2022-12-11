@@ -2,10 +2,13 @@ package com.test.UrlShortner.controller;
 
 import com.test.UrlShortner.model.ErrorResponse;
 import com.test.UrlShortner.model.Response;
+import com.test.UrlShortner.model.UrlShortenerModel;
 import com.test.UrlShortner.service.UrlShortenerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -38,5 +41,13 @@ public class UrlShortnerController {
        // return "Generate URL shortener";
     }
 
+
+    @GetMapping("/stats/")
+    public Object getAllURL() {
+
+        List<UrlShortenerModel> responseList=urlShortenerService.getAll();
+        // return "Generate URL shortener";
+        return responseList;
+    }
 
 }
