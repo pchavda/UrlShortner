@@ -1,18 +1,22 @@
 package com.test.UrlShortner.service;
 
 import com.test.UrlShortner.model.ErrorResponse;
+import com.test.UrlShortner.model.UrlShortenerModel;
+import com.test.UrlShortner.repository.UrlShortenerRepository;
 import org.apache.commons.validator.routines.UrlValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UrlShortenerService {
-
+    @Autowired
+    UrlShortenerRepository urlShortenerRepository;
      public boolean validateURL(String url) {
 
          String[] schemes = {"http","https"};
          UrlValidator urlValidator = new UrlValidator(schemes);
          if (urlValidator.isValid(url)) {
-             System.out.println("url is valid");
+             System.out.println("URL is valid");
              return true;
          } else {
              return false;
@@ -22,7 +26,16 @@ public class UrlShortenerService {
     public String shortenURL(String url) {
           String newURL=getAlphaNumericString(10);
          //check if String present in H2
-            return newURL;
+        UrlShortenerModel byShortenedURL = urlShortenerRepository.findByShortURL(url);
+        while(byShortenedURL!=null && byShortenedURL.getShortURL()!=newURL) {
+             newURL=getAlphaNumericString(10);
+             byShortenedURL = urlShortenerRepository.findByShortURL(url);
+        }
+        UrlShortenerModel obj=new UrlShortenerModel(newURL,url);
+
+        urlShortenerRepository.save(obj);
+
+        return newURL;
 
     }
 
