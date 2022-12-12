@@ -24,7 +24,6 @@ public class UrlShortenerController {
             return urlShortenerService.retrieveActualURL(shortenedUrl);
         }
 
-
         return "The shortened url passed :" + shortenedUrl;
     }
 

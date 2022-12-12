@@ -18,7 +18,7 @@ public class UrlShortenerService {
     @Value("${application.url.shortener.length:10}")
     public int size;
 
-    public static final String domainName="\"https://urlShortner.com/\"";
+    public static final String domainName="https://urlShortner.com/";
      public boolean validateURL(String url) {
 
          String[] schemes = {"http","https"};
