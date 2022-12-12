@@ -1,7 +1,7 @@
 package com.src.application.urlshortener.model;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 
 @Entity
 @Table(name = "urlShortener")

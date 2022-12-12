@@ -7,10 +7,11 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UrlShortenerService {
     @Autowired
     UrlShortenerRepository urlShortenerRepository;
@@ -20,11 +21,11 @@ public class UrlShortenerService {
 
     public static final String domainName="https://urlShortner.com/";
      public boolean validateURL(String url) {
-
+           log.info("Original URL {}",url);
          String[] schemes = {"http","https"};
          UrlValidator urlValidator = new UrlValidator(schemes);
          if (urlValidator.isValid(url)) {
-             System.out.println("URL is valid");
+             log.debug("URL is valid {}", url);
              return true;
          } else {
              return false;
