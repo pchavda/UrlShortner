@@ -1,12 +1,9 @@
-package com.test.UrlShortner.model;
+package com.src.application.urlshortener.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Entity
-@Data
 @Table(name = "urlShortener")
 public class UrlShortenerModel {
     @Id
@@ -27,6 +24,14 @@ public class UrlShortenerModel {
 
    public UrlShortenerModel(){
 
+    }
+
+    public String getShortURL() {
+        return shortURL;
+    }
+
+    public String getOriginalURL() {
+        return originalURL;
     }
 
     @Override

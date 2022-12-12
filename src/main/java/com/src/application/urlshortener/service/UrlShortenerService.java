@@ -1,11 +1,11 @@
-package com.test.UrlShortner.service;
+package com.src.application.urlshortener.service;
 
-import com.test.UrlShortner.model.ErrorResponse;
-import com.test.UrlShortner.model.Response;
-import com.test.UrlShortner.model.UrlShortenerModel;
-import com.test.UrlShortner.repository.UrlShortenerRepository;
+import com.src.application.urlshortener.model.ErrorResponse;
+import com.src.application.urlshortener.model.UrlShortenerModel;
+import com.src.application.urlshortener.repository.UrlShortenerRepository;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +14,11 @@ import java.util.List;
 public class UrlShortenerService {
     @Autowired
     UrlShortenerRepository urlShortenerRepository;
+
+    @Value("${application.url.shortener.length:10}")
+    public int size;
+
+    public static final String domainName="\"https://urlShortner.com/\"";
      public boolean validateURL(String url) {
 
          String[] schemes = {"http","https"};
@@ -27,10 +32,10 @@ public class UrlShortenerService {
     }
 
     public String shortenURL(String url) {
-          String newURL=getAlphaNumericString(10);
+          String newURL=getAlphaNumericString(size);
          //check if String present in H2
         UrlShortenerModel byShortenedURL = urlShortenerRepository.findByShortURL(url);
-        while(byShortenedURL!=null && byShortenedURL.getShortURL()!=newURL) {
+        while(byShortenedURL!=null && !byShortenedURL.getShortURL().equals(newURL)) {
              newURL=getAlphaNumericString(10);
              byShortenedURL = urlShortenerRepository.findByShortURL(url);
         }
@@ -71,10 +76,8 @@ public class UrlShortenerService {
             sb.append(AlphaNumericString
                     .charAt(index));
         }
-        StringBuilder domainBuilder=new StringBuilder();
-        domainBuilder.append("https://urlShortner.com/");
-        domainBuilder.append(sb);
-        return domainBuilder.toString();
+         ;
+        return  domainName + sb;
     }
 
 
@@ -90,9 +93,7 @@ public class UrlShortenerService {
 
     public List<UrlShortenerModel> getAll() {
 
-        List<UrlShortenerModel> all = urlShortenerRepository.findAll();
-
-        return all;
+       return urlShortenerRepository.findAll();
     }
 }
 
