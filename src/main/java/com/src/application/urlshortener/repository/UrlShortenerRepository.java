@@ -11,14 +11,17 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface UrlShortenerRepository extends JpaRepository<UrlShortenerModel, Long> {
+public interface UrlShortenerRepository extends JpaRepository<UrlShortenerModel, Long>{
 
     UrlShortenerModel findByShortURL(String shortenedURL);
 
-    @Query(
-            value = "SELECT * FROM urlShortener u WHERE u.short_url = :shortenedURL",
+    @Query(value = "SELECT * FROM urlShortener u WHERE u.short_url = :shortenedURL",
             nativeQuery = true)
-    Collection<UrlShortenerModel> findAllActiveUsersNative( @Param("status") String shortenedURL);
+    Collection<UrlShortenerModel> findAllShortUrls(@Param("shortenedURL") String shortenedURL);
 
-    Page<UrlShortenerModel> findAllUsersWithPagination(Pageable pageable);
+    @Query(value ="SELECT * FROM urlShortener * ORDER BY id",
+            countQuery = "SELECT Count(*) FROM urlShortener",
+            nativeQuery = true)
+    Page<UrlShortenerModel> findAllShortUrlsWithPagination(Pageable pageable);
+
 }
